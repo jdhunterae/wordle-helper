@@ -30,24 +30,24 @@ function cycleColor(cell) {
     cell.className = `word-cell ${states[current] !== "unset" ? states[current] : ""}`;
 }
 
-
-function calculateLetterFrequencies(words) {
-    const freq = {};
-    let total = 0;
+function calculateLetterFrequencies(words, hideKnown = false, knownLetters = new Set()) {
+    const presenceCounts = {};
+    const totalWords = words.length;
 
     for (const word of words) {
-        for (const char of word) {
-            freq[char] = (freq[char] || 0) + 1;
-            total++;
+        const uniqueLetters = new Set(word);
+        for (const letter of uniqueLetters) {
+            if (hideKnown && knownLetters.has(letter)) continue;
+            presenceCounts[letter] = (presenceCounts[letter] || 0) + 1;
         }
     }
 
-    const sorted = Object.entries(freq)
+    const sorted = Object.entries(presenceCounts)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5)
         .map(([char, count]) => {
-            const percent = ((count / total) * 100).toFixed(1);
-            return `${char.toUpperCase()} - ${percent}%`;
+            const percent = ((count / totalWords) * 100).toFixed(1);
+            return `${char.toUpperCase()} — ${percent}%`;
         });
 
     return sorted;
@@ -56,6 +56,7 @@ function calculateLetterFrequencies(words) {
 function applyHints() {
     const included = new Set();
     const excluded = new Set();
+    const knownLetters = new Set();
     const exact = Array(5).fill(null);
     const partial = [];
 
@@ -65,9 +66,12 @@ function applyHints() {
             if (!letter || letter.length !== 1) return;
 
             const state = cell.dataset.state;
-            if (state === "green") exact[i] = letter;
-            else if (state === "yellow") {
+            if (state === "green") {
+                exact[i] = letter;
+                knownLetters.add(letter);
+            } else if (state === "yellow") {
                 included.add(letter);
+                knownLetters.add(letter);
                 partial.push({ letter, notAt: i });
             } else if (state === "grey") {
                 excluded.add(letter);
@@ -89,7 +93,11 @@ function applyHints() {
         return true;
     });
 
-    const stats = calculateLetterFrequencies(results);
+    // Check toggle
+    const toggle = document.getElementById("toggle-known");
+    const hideKnown = !toggle.checked;
+
+    const stats = calculateLetterFrequencies(results, hideKnown, knownLetters);
     document.getElementById("stats").innerHTML = stats.map(s => `<li>${s}</li>`).join("");
 
     suggestionsList.innerHTML = results.slice(0, 10).map(w => `<li class="collection-item">${w}</li>`).join("");
