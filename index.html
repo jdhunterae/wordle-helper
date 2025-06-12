@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Wordle Helper</title>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="container">
+    <h4 class="center-align">Wordle Helper</h4>
+
+    <div id="grid-container" class="wordle-board"></div>
+
+    <div class="center-align">
+      <button class="btn green darken-1" onclick="applyHints()">
+        Get Hints
+      </button>
+    </div>
+
+    <h5>Suggestions:</h5>
+    <ul id="suggestions" class="collection"></ul>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
