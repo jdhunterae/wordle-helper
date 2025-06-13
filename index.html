@@ -34,15 +34,15 @@
 
           <div class="center-align" role="group" aria-label="Action buttons">
             <button
+              id="hint-button"
               class="btn green darken-1"
-              onclick="applyHints()"
               aria-label="Analyze guesses and get suggestions"
             >
               Get Hints
             </button>
             <button
+              id="clear-button"
               class="btn red darken-1"
-              onclick="clearBoard()"
               aria-label="Clear all guesses and reset board"
             >
               Clear
@@ -60,6 +60,18 @@
           ></ul>
 
           <h6>Most Frequent Letters</h6>
+          <div class="switch">
+            <label>
+              Show known letters
+              <input
+                id="toggle-known"
+                type="checkbox"
+                checked
+                aria-label="Toggle visibility of known letters in stats"
+              />
+              <span class="lever"></span>
+            </label>
+          </div>
           <ul
             id="stats"
             class="collection"
@@ -67,22 +79,6 @@
           ></ul>
         </aside>
       </div>
-
-      <!-- Toggle Section -->
-      <section class="section">
-        <div class="switch">
-          <label>
-            Show known letters
-            <input
-              id="toggle-known"
-              type="checkbox"
-              checked
-              aria-label="Toggle visibility of known letters in stats"
-            />
-            <span class="lever"></span>
-          </label>
-        </div>
-      </section>
 
       <!-- Suggestions Grid-->
       <section class="row">
@@ -102,6 +98,6 @@
       </section>
     </main>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
