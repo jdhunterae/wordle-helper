@@ -11,8 +11,11 @@
     height: 60px;
     font-size: 24px;
     text-align: center;
+    text-transform: uppercase;
     line-height: 60px;
     border: 2px solid #ccc;
+    margin: 2px;
+    outline: none;
     cursor: pointer;
 }
 
