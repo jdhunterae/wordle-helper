@@ -18,44 +18,89 @@
   </head>
 
   <body class="container">
-    <h4 class="center-align">Wordle Helper</h4>
+    <header>
+      <h4 class="center-align">Wordle Helper</h4>
+    </header>
 
-    <div class="row">
-      <div class="col s12 m8" id="left-panel">
-        <div id="grid-container" class="wordle-board"></div>
+    <main>
+      <div class="row">
+        <!-- Left Panel: Wordle Grid + Controls -->
+        <section class="col s12 m8" id="left-panel">
+          <div
+            id="grid-container"
+            class="wordle-board"
+            aria-label="Wordle Input Grid"
+          ></div>
 
-        <div class="center-align">
-          <button class="btn green darken-1" onclick="applyHints()">
-            Get Hints
-          </button>
-          <button class="btn red darken-1" onclick="clearBoard()">Clear</button>
+          <div class="center-align" role="group" aria-label="Action buttons">
+            <button
+              class="btn green darken-1"
+              onclick="applyHints()"
+              aria-label="Analyze guesses and get suggestions"
+            >
+              Get Hints
+            </button>
+            <button
+              class="btn red darken-1"
+              onclick="clearBoard()"
+              aria-label="Clear all guesses and reset board"
+            >
+              Clear
+            </button>
+          </div>
+        </section>
+
+        <!-- Right Panel: Quick Info -->
+        <aside class="col s12 m4" id="right-panel">
+          <h6>Top Picks</h6>
+          <ul
+            id="top-picks"
+            class="collection"
+            aria-label="Top scored next guesses"
+          ></ul>
+
+          <h6>Most Frequent Letters</h6>
+          <ul
+            id="stats"
+            class="collection"
+            aria-label="Most frequent remaining letters"
+          ></ul>
+        </aside>
+      </div>
+
+      <!-- Toggle Section -->
+      <section class="section">
+        <div class="switch">
+          <label>
+            Show known letters
+            <input
+              id="toggle-known"
+              type="checkbox"
+              checked
+              aria-label="Toggle visibility of known letters in stats"
+            />
+            <span class="lever"></span>
+          </label>
         </div>
-      </div>
+      </section>
 
-      <div class="col s12 m4" id="right-panel">
-        <h6>Top Picks</h6>
-        <ul id="top-picks" class="collection"></ul>
-
-        <h6>Most Frequent Letters:</h6>
-        <ul id="stats" class="collection"></ul>
-      </div>
-    </div>
-
-    <div class="switch">
-      <label>
-        Show known letters
-        <input id="toggle-known" type="checkbox" checked />
-        <span class="lever"></span>
-      </label>
-    </div>
-
-    <div class="row">
-      <div class="col s12">
-        <h5>Suggestions:</h5>
-        <div id="out-of" class="grey-text right-align"></div>
-        <div id="suggestions" class="suggestion-grid"></div>
-      </div>
-    </div>
+      <!-- Suggestions Grid-->
+      <section class="row">
+        <div class="col s12">
+          <h5>Suggestions</h5>
+          <div
+            id="out-of"
+            class="grey-text right-align"
+            aria-live="polite"
+          ></div>
+          <div
+            id="suggestions"
+            class="suggestion-grid"
+            aria-label="Filtered suggestion list grid"
+          ></div>
+        </div>
+      </section>
+    </main>
 
     <script src="js/script.js"></script>
   </body>

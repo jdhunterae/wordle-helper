@@ -1,13 +1,12 @@
+/* =================== *
+ * Layout
+ * ==================== */
 #grid-container {
     margin-bottom: 20px;
 }
 
 #right-panel {
     margin-top: 0;
-}
-
-#out-of {
-    margin-right: 10px;
 }
 
 .suggestion-grid {
@@ -17,6 +16,17 @@
     margin-top: 10px;
 }
 
+#out-of {
+    margin-right: 10px;
+}
+
+button+button {
+    margin-left: 10px;
+}
+
+/* =================== *
+ * Typography & Visual
+ * =================== */
 .suggestion-grid .suggestion-item {
     background-color: #f3f3f3;
     padding: 6px 10px;
@@ -33,6 +43,14 @@
     margin-bottom: 20px;
 }
 
+#right-panel h6 {
+    margin-top: 20px;
+}
+
+
+/* =================== *
+ * Word Cell
+ * =================== */
 .word-cell {
     width: 60px;
     height: 60px;
