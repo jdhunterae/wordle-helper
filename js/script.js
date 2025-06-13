@@ -50,6 +50,23 @@ function createBoard() {
     guesses[0][0].focus();
 }
 
+function clearBoard() {
+    guesses.forEach(row => {
+        row.forEach(cell => {
+            cell.value = "";
+            cell.dataset.state = "unset";
+            cell.className = "word-cell";
+        });
+    });
+
+    document.getElementById("stats").innerHTML = "";
+    document.getElementById("suggestions").innerHTML = "";
+    document.getElementById("top-picks").innerHTML = "";
+    document.getElementById("out-of").innerHTML = "";
+
+    guesses[0][0].focus(); // Refocus on the first cell
+}
+
 function handleTyping(e, row, col) {
     const cell = e.target;
     cell.value = cell.value.toUpperCase();
@@ -97,10 +114,32 @@ function calculateLetterFrequencies(words, hideKnown = false, knownLetters = new
         .slice(0, 5)
         .map(([char, count]) => {
             const percent = ((count / totalWords) * 100).toFixed(1);
-            return `${char.toUpperCase()} — ${percent}%`;
+            return { char, rate: percent };
         });
 
     return sorted;
+}
+
+function scoreWord(word, knownLetters, exact, invalid, topLetters) {
+    let score = 0;
+    const used = new Set();
+
+    for (let i = 0; i < 5; i++) {
+        const char = word[i];
+        if (used.has(char)) continue;
+        used.add(char);
+
+        if (topLetters.includes(char)) score += 3;
+
+        if (knownLetters.has(char)) {
+            if (exact[i] === char) score += 5;
+            else if (invalid[i]?.has(char)) score -= 2;
+            else score += 2;
+        }
+    }
+
+    score += used.size;
+    return score;
 }
 
 function applyHints() {
@@ -154,11 +193,39 @@ function applyHints() {
     const hideKnown = !toggle.checked;
 
     const stats = calculateLetterFrequencies(results, hideKnown, knownLetters);
-    document.getElementById("stats").innerHTML = stats.map(s => `<li>${s}</li>`).join("");
+    document.getElementById("stats").innerHTML = stats
+        .map(s => `<li class="collection-item">${s.char.toUpperCase()}<span class="right">${s.rate}%</span></li>`)
+        .join("");
 
-    document.getElementById("out-of").innerHTML = `(out of ${wordList === null ? 'undefined' : wordList.length} words)`;
+    document.getElementById("out-of").innerHTML = `(narrowing to ${results.length} of ${wordList.length} words)`;
 
-    suggestionsList.innerHTML = results.slice(0, 10).map(w => `<li class="collection-item">${w}</li>`).join("");
+    suggestionsList.innerHTML = results
+        .slice(0, 30)
+        .map(w => `<div class="suggestion-item">${w.toUpperCase()}</div>`)
+        .join("");
+
+    const rawTopLetters = calculateLetterFrequencies(results, false);
+    const topLetters = rawTopLetters.map(entry => entry[0]?.toLocaleLowerCase?.() || "");
+
+    // Build invalid position map from yello letters
+    const invalid = {};
+    partial.forEach(({ letter, notAt }) => {
+        if (!invalid[notAt]) invalid[notAt] = new Set();
+        invalid[notAt].add(letter);
+    });
+
+    // Score words using current context
+    const ranked = results.map(word => ({
+        word,
+        score: scoreWord(word, new Set([...included, ...knownLetters]), exact, invalid, topLetters)
+    })).sort((a, b) => b.score - a.score);
+
+    // Update top-picks UI
+    const topPicksHTML = ranked.slice(0, 3)
+        .map(p => `<li class="collection-item">${p.word.toUpperCase()}<span class="right">${p.score}</span></li>`)
+        .join("");
+
+    document.getElementById("top-picks").innerHTML = topPicksHTML;
 }
 
 Set.prototype.hasAny = function (arr) {

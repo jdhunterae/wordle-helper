@@ -20,12 +20,25 @@
   <body class="container">
     <h4 class="center-align">Wordle Helper</h4>
 
-    <div id="grid-container" class="wordle-board"></div>
+    <div class="row">
+      <div class="col s12 m8" id="left-panel">
+        <div id="grid-container" class="wordle-board"></div>
 
-    <div class="center-align">
-      <button class="btn green darken-1" onclick="applyHints()">
-        Get Hints
-      </button>
+        <div class="center-align">
+          <button class="btn green darken-1" onclick="applyHints()">
+            Get Hints
+          </button>
+          <button class="btn red darken-1" onclick="clearBoard()">Clear</button>
+        </div>
+      </div>
+
+      <div class="col s12 m4" id="right-panel">
+        <h6>Top Picks</h6>
+        <ul id="top-picks" class="collection"></ul>
+
+        <h6>Most Frequent Letters:</h6>
+        <ul id="stats" class="collection"></ul>
+      </div>
     </div>
 
     <div class="switch">
@@ -36,12 +49,13 @@
       </label>
     </div>
 
-    <h5>Most Frequent Letters:</h5>
-    <ul id="stats" class="collection"></ul>
-    
-    <h5>Suggestions:</h5>
-    <div id="out-of"></div>
-    <ul id="suggestions" class="collection"></ul>
+    <div class="row">
+      <div class="col s12">
+        <h5>Suggestions:</h5>
+        <div id="out-of" class="grey-text right-align"></div>
+        <div id="suggestions" class="suggestion-grid"></div>
+      </div>
+    </div>
 
     <script src="js/script.js"></script>
   </body>
