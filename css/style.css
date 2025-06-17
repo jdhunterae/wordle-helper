@@ -8,6 +8,11 @@
     --green: #a8d5a2;
     --yellow: #f0e6a0;
     --grey: #cfcfcf;
+
+    --collection-bg: #ffffff;
+    --collection-text: #000000;
+    --suggestion-bg: #f3f3f3;
+    --suggestion-text: #000000;
 }
 
 [data-theme="dark"] {
@@ -17,13 +22,20 @@
     --green: #4d7c4a;
     --yellow: #bca948;
     --grey: #999999;
+
+    --collection-bg: #1e1e1e;
+    --collection-text: #f1f1f1;
+    --suggestion-bg: #333333;
+    --suggestion-text: #ffffff;
 }
 
 /* =================== *
  * Layout
  * ==================== */
+html,
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
 }
 
 #grid-container {
@@ -53,12 +65,18 @@ button+button {
  * Typography & Visual
  * =================== */
 .suggestion-grid .suggestion-item {
-    background-color: var(--cell-bg);
+    background-color: var(--suggestion-bg);
+    color: var(--suggestion-text);
     padding: 6px 10px;
     text-align: center;
     border-radius: 4px;
     font-weight: 500;
-    color: var(--text-color);
+}
+
+.collection-item {
+    background-color: var(--collection-bg) !important;
+    color: var(--collection-text) !important;
+    border-color: var(--grey);
 }
 
 .wordle-board {
@@ -93,18 +111,18 @@ button+button {
 }
 
 .green {
-    background-color: var(--green);
-    color: #000000;
+    background-color: var(--green) !important;
+    color: #000000 !important;
 }
 
 .yellow {
-    background-color: var(--yellow);
-    color: #000000;
+    background-color: var(--yellow) !important;
+    color: #000000 !important;
 }
 
 .grey {
-    background-color: var(--grey);
-    color: #000000;
+    background-color: var(--grey) !important;
+    color: #000000 !important;
 }
 
 /* =================== *
