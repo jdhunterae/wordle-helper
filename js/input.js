@@ -23,6 +23,8 @@ export function handleBackspace(e, row, col) {
 }
 
 export function cycleColor(cell) {
+    if (!cell.value) return;
+    
     const states = ["unset", "green", "yellow", "grey"];
     let current = states.indexOf(cell.dataset.state);
     current = (current + 1) % states.length;
