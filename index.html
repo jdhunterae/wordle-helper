@@ -1,103 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Wordle Helper</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+  <title>Wordle Helper</title>
 
-  <body class="container">
-    <header>
-      <h4 class="center-align">Wordle Helper</h4>
-    </header>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 
-    <main>
-      <div class="row">
-        <!-- Left Panel: Wordle Grid + Controls -->
-        <section class="col s12 m8" id="left-panel">
-          <div
-            id="grid-container"
-            class="wordle-board"
-            aria-label="Wordle Input Grid"
-          ></div>
+<body class="container">
+  <header>
+    <h4 class="center-align">Wordle Helper</h4>
 
-          <div class="center-align" role="group" aria-label="Action buttons">
-            <button
-              id="hint-button"
-              class="btn green darken-1"
-              aria-label="Analyze guesses and get suggestions"
-            >
-              Get Hints
-            </button>
-            <button
-              id="clear-button"
-              class="btn red darken-1"
-              aria-label="Clear all guesses and reset board"
-            >
-              Clear
-            </button>
-          </div>
-        </section>
-
-        <!-- Right Panel: Quick Info -->
-        <aside class="col s12 m4" id="right-panel">
-          <h6>Top Picks</h6>
-          <ul
-            id="top-picks"
-            class="collection"
-            aria-label="Top scored next guesses"
-          ></ul>
-
-          <h6>Most Frequent Letters</h6>
-          <div class="switch">
-            <label>
-              Show known letters
-              <input
-                id="toggle-known"
-                type="checkbox"
-                checked
-                aria-label="Toggle visibility of known letters in stats"
-              />
-              <span class="lever"></span>
-            </label>
-          </div>
-          <ul
-            id="stats"
-            class="collection"
-            aria-label="Most frequent remaining letters"
-          ></ul>
-        </aside>
+    <!-- Theme toggle -->
+    <div class="right-align">
+      <div class="switch">
+        <label>
+          Light
+          <input type="checkbox" id="theme-toggle" aria-label="Toggle dark/light mode" />
+          <span class="lever"></span>
+          Dark
+        </label>
       </div>
+    </div>
+  </header>
 
-      <!-- Suggestions Grid-->
-      <section class="row">
-        <div class="col s12">
-          <h5>Suggestions</h5>
-          <div
-            id="out-of"
-            class="grey-text right-align"
-            aria-live="polite"
-          ></div>
-          <div
-            id="suggestions"
-            class="suggestion-grid"
-            aria-label="Filtered suggestion list grid"
-          ></div>
+  <main>
+    <div class="row">
+      <!-- Left Panel: Wordle Grid + Controls -->
+      <section class="col s12 m8" id="left-panel">
+        <div id="grid-container" class="wordle-board" aria-label="Wordle Input Grid"></div>
+
+        <div class="center-align" role="group" aria-label="Action buttons">
+          <button id="hint-button" class="btn green darken-1" aria-label="Analyze guesses and get suggestions">
+            Get Hints
+          </button>
+          <button id="clear-button" class="btn red darken-1" aria-label="Clear all guesses and reset board">
+            Clear
+          </button>
         </div>
       </section>
-    </main>
 
-    <script type="module" src="js/main.js"></script>
-  </body>
+      <!-- Right Panel: Quick Info -->
+      <aside class="col s12 m4" id="right-panel">
+        <div class="switch">
+          <label>
+            Dark Mode
+            <input id="toggle-known" type="checkbox" checked aria-label="Toggle visibility of known letters in stats" />
+            <span class="lever"></span>
+          </label>
+        </div>
+
+        <h6>Top Picks</h6>
+        <ul id="top-picks" class="collection" aria-label="Top scored next guesses"></ul>
+
+        <h6>Most Frequent Letters</h6>
+        <div class="switch">
+          <label>
+            Show known letters
+            <input id="toggle-known" type="checkbox" checked aria-label="Toggle visibility of known letters in stats" />
+            <span class="lever"></span>
+          </label>
+        </div>
+        <ul id="stats" class="collection" aria-label="Most frequent remaining letters"></ul>
+      </aside>
+    </div>
+
+    <!-- Suggestions Grid-->
+    <section class="row">
+      <div class="col s12">
+        <h5>Suggestions</h5>
+        <div id="out-of" class="grey-text right-align" aria-live="polite"></div>
+        <div id="suggestions" class="suggestion-grid" aria-label="Filtered suggestion list grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
 </html>
