@@ -24,10 +24,22 @@ export function handleBackspace(e, row, col) {
 
 export function cycleColor(cell) {
     if (!cell.value) return;
-    
+
     const states = ["unset", "green", "yellow", "grey"];
     let current = states.indexOf(cell.dataset.state);
     current = (current + 1) % states.length;
     cell.dataset.state = states[current];
     cell.className = `word-cell ${states[current] !== "unset" ? states[current] : ""}`;
+}
+
+export function clearRow(row) {
+    if (!guesses[row]) return;
+
+    guesses[row].forEach(cell => {
+        cell.value = "";
+        cell.dataset.state = 'unset';
+        cell.className = 'word-cell';
+    });
+
+    guesses[row][0].focus();
 }

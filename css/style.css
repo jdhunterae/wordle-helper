@@ -110,6 +110,24 @@ button+button {
     color: var(--text-color);
 }
 
+.guess-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.clear-row {
+    cursor: pointer;
+    color: #888;
+    margin-left: 8px;
+    font-size: 20px;
+    user-select: none;
+}
+
+.clear-row:hover {
+    color: #d33;
+}
+
 .green {
     background-color: var(--green) !important;
     color: #000000 !important;

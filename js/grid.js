@@ -1,9 +1,12 @@
-import { handleTyping, handleBackspace, cycleColor } from './input.js';
+import { handleTyping, handleBackspace, cycleColor, clearRow } from './input.js';
 import { DOM, guesses } from './utils.js';
 
 export function createBoard() {
     for (let row = 0; row < 6; row++) {
         guesses[row] = [];
+
+        const rowWrapper = document.createElement('div');
+        rowWrapper.className = 'guess-row';
 
         for (let col = 0; col < 5; col++) {
             const cell = document.createElement("input");
@@ -17,6 +20,8 @@ export function createBoard() {
 
             // Color cycling on click
             cell.addEventListener("click", () => {
+                if (!cell.value) return;
+
                 cycleColor(cell);
             });
 
@@ -28,6 +33,7 @@ export function createBoard() {
             // Optional: prevent non-letter characters
             cell.addEventListener('keypress', (e) => {
                 const char = String.fromCharCode(e.which);
+
                 if (!/^[a-zA-Z]$/.test(char)) {
                     e.preventDefault();
                 }
@@ -40,8 +46,18 @@ export function createBoard() {
             });
 
             guesses[row].push(cell);
-            DOM.board.appendChild(cell);
+            rowWrapper.appendChild(cell);
         }
+
+        // Add clear row icon
+        const clearBtn = document.createElement('span');
+        clearBtn.className = 'clear-row material-icons';
+        clearBtn.textContent = 'clear';
+        clearBtn.title = 'Clear this row';
+        clearBtn.addEventListener('click', () => clearRow(row));
+        rowWrapper.appendChild(clearBtn);
+
+        DOM.board.appendChild(rowWrapper);
     }
 
     guesses[0][0].focus();
